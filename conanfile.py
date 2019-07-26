@@ -1,3 +1,4 @@
+import glob
 import os
 
 from conans import CMake, ConanFile, tools
@@ -64,15 +65,18 @@ class OctomapConan(ConanFile):
         self.copy(pattern="LICENSE", dst="licenses", src=self._source_subfolder)
         cmake = self._configure_cmake()
         cmake.install()
-        # If the CMakeLists.txt has a proper install method, the steps below may be redundant
-        # If so, you can just remove the lines below
-        include_folder = os.path.join(self._source_subfolder, "include")
-        self.copy(pattern="*", dst="include", src=include_folder)
-        self.copy(pattern="*.dll", dst="bin", keep_path=False)
-        self.copy(pattern="*.lib", dst="lib", keep_path=False)
-        self.copy(pattern="*.a", dst="lib", keep_path=False)
-        self.copy(pattern="*.so*", dst="lib", keep_path=False)
-        self.copy(pattern="*.dylib", dst="lib", keep_path=False)
+        # octomap always builds static and shared versions of library
+        # so delete whichever kind was not requested for this package.
+        # Without this CMake may link against the wrong library type
+        # (preferring shared when static was requested).        )
+        if self.options.shared:
+            glob_to_delete = "*.a"
+        else:
+            glob_to_delete = "*.so*"
+        for filename in glob.glob(
+            os.path.join(self.package_folder, "lib", glob_to_delete)
+        ):
+            os.remove(filename)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
