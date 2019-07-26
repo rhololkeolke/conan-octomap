@@ -93,9 +93,4 @@ int main(int argc, char** argv) {
 
 
   cout << endl;
-  tree.writeBinary("simple_tree.bt");
-  cout << "wrote example file simple_tree.bt" << endl << endl;
-  cout << "now you can use octovis to visualize: octovis simple_tree.bt"  << endl;
-  cout << "Hint: hit 'F'-key in viewer to see the freespace" << endl  << endl;  
-
 }
