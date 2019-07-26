@@ -52,6 +52,7 @@ class OctomapConan(ConanFile):
         cmake.definitions["BUILD_TESTING"] = False
         cmake.definitions["BUILD_OCTOVIS_SUBPROJECT"] = False
         cmake.definitions["BUILD_DYNAMICETD3D_SUBPROJECT"] = False
+        cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
         cmake.configure(
             build_folder=self._build_subfolder, source_folder=self._source_subfolder
         )
