@@ -6,7 +6,7 @@ from conans import CMake, ConanFile, tools
 
 class OctomapConan(ConanFile):
     name = "octomap"
-    version = "1.9.0"
+    version = "1.6.8"
     description = (
         "An Efficient Probabilistic 3D Mapping Framework Based on Octrees."
         " Contains the main OctoMap library, the viewer octovis, and dynamicEDT3D."
@@ -40,7 +40,7 @@ class OctomapConan(ConanFile):
         source_url = "https://github.com/OctoMap/octomap"
         tools.get(
             "{0}/archive/v{1}.tar.gz".format(source_url, self.version),
-            sha256="5f81c9a8cbc9526b2e725251cd3a829e5222a28201b394314002146d8b9214dd",
+            sha256="833adba0d3b203cab0e28a0180490e74bc852a7fea9adf6ee53bbfb8f10bc79a",
         )
         extracted_dir = self.name + "-" + self.version
 
